@@ -25,14 +25,15 @@
             type="number"
             class="form-control mb-3"
             id="pageNO"
-            onchange="pageVidGet()"
             min="1"
             max="261"
           />
           <div class="alert alert-danger d-none" role="alert">
             رقم الصفحة غير صحيح يرجى تحديد رقم بين 1 و261
           </div>
-          <a class="btn btn-primary" target="_blank">انتقل للمقطع</a>
+          <a class="btn btn-primary" target="_blank" onclick="openVid()"
+            >انتقل للمقطع</a
+          >
         </div>
       </div>
       <!-- Card -->
@@ -295,13 +296,13 @@
       260: "https://www.youtube.com/watch?v=7CiftUysJ-Y",
       261: "https://www.youtube.com/watch?v=0LpZ5Jm1sqA",
     };
-    let link = document.querySelector("a.btn");
     let alert = document.querySelector(".alert");
 
-    function pageVidGet() {
+    function openVid() {
       let pageNo = document.querySelector("input").value;
-      if (videos[pageNo]) {
-        link.setAttribute("href", videos[pageNo]);
+
+      if (pageNo > 0 && pageNo < 262) {
+        window.open(videos[pageNo], "_blank");
         alert.classList.add("d-none");
       } else {
         alert.classList.remove("d-none");
