@@ -32,8 +32,47 @@
             رقم الصفحة غير صحيح يرجى تحديد رقم بين 1 و261
           </div>
           <a class="btn btn-primary" target="_blank" onclick="openVid()"
-            >انتقل للمقطع</a
+            >فتح المقطع</a
           >
+        </div>
+        <div class="card-footer text-body-secondary">
+          <button
+            type="button"
+            class="btn btn-outline-light"
+            onclick="switchCard('banks')"
+          >
+            الإنتقال لمقاطع الإصدارات
+          </button>
+        </div>
+      </div>
+      <!-- Card -->
+      <div class="card text-center d-none">
+        <div class="card-header">مقاطع شرح إصدارات المعاصر 9</div>
+        <div class="card-body">
+          <h5 class="card-title mb-3">ادخل رقم الإصدار</h5>
+          <input
+            type="number"
+            class="form-control mb-3"
+            id="pageNO"
+            min="1"
+            max="80"
+          />
+          <div class="alert alert-danger d-none" role="alert">
+            رقم الإصدار غير صحيح يرجى تحديد رقم بين 1 و80
+          </div>
+          <a class="btn btn-primary" target="_blank" onclick="openBank()"
+            >ابحث عن الإصدار</a
+          >
+          <div id="bankBtns"></div>
+        </div>
+        <div class="card-footer text-body-secondary">
+          <button
+            type="button"
+            class="btn btn-outline-light"
+            onclick="switchCard('book')"
+          >
+            الإنتقال لمقاطع الكتاب
+          </button>
         </div>
       </div>
       <!-- Card -->
@@ -296,16 +335,379 @@
       260: "https://www.youtube.com/watch?v=7CiftUysJ-Y",
       261: "https://www.youtube.com/watch?v=0LpZ5Jm1sqA",
     };
-    let alert = document.querySelector(".alert");
+    const banks = {
+      80: [
+        { vid: 1, id: "pcL58hDSnGM" },
+        { vid: 2, id: "QtnrkgI1Wb4" },
+      ],
+      79: [
+        { vid: 1, id: "1fMGihCuSj8" },
+        { vid: 2, id: "X4mBJFk4CE4" },
+      ],
+      78: [
+        { vid: 1, id: "mdtsrIGIQLE" },
+        { vid: 2, id: "gBbwtgHVj30" },
+      ],
+      77: [
+        { vid: 1, id: "V8w91LiDemk" },
+        { vid: 2, id: "Nz8EWn1qzSM" },
+      ],
+      76: [
+        { vid: 1, id: "ah5YCoOYh3E" },
+        { vid: 2, id: "DFJrWgt1qQY" },
+      ],
+      75: [
+        { vid: 1, id: "LA6Jv7QlAYc" },
+        { vid: 2, id: "XxUhE3xwylA" },
+      ],
+      74: [
+        { vid: 1, id: "8eqKUm1HTUg" },
+        { vid: 2, id: "j2mt8eZNCtE" },
+      ],
+      73: [
+        { vid: 1, id: "yx4a2QAN86s" },
+        { vid: 2, id: "F7xFIXhsIR0" },
+      ],
+      72: [
+        { vid: 1, id: "_-ctJV7rCHw" },
+        { vid: 2, id: "4mZxcsSiLAc" },
+      ],
+      71: [
+        { vid: 1, id: "28KBbuFNf8c" },
+        { vid: 2, id: "snMrQp6TrRg" },
+      ],
+      70: [
+        { vid: 1, id: "QKUbvgrLruo" },
+        { vid: 2, id: "XLV9TKXuBhc" },
+      ],
+      69: [
+        { vid: 1, id: "Q2zJRBE_vX0" },
+        { vid: 2, id: "_LSAtm3R4lI" },
+      ],
+      68: [
+        { vid: 1, id: "W3uKqIgzAj8" },
+        { vid: 2, id: "t1iTMXWINYI" },
+      ],
+      67: [
+        { vid: 1, id: "2IUxLxFyAuw" },
+        { vid: 2, id: "H1bUI9QyqI8" },
+      ],
+      66: [
+        { vid: 1, id: "MbVzvkxWn3c" },
+        { vid: 2, id: "-nEoAEctDM4" },
+      ],
+      65: [
+        { vid: 1, id: "ZCDuJEvuUwE" },
+        { vid: 2, id: "KjGzJ0zxzNg" },
+      ],
+      64: [
+        { vid: 1, id: "thMBsd8xIGU" },
+        { vid: 2, id: "_HeNH-aj7a4" },
+      ],
+      63: [
+        { vid: 1, id: "GLFo6l4povU" },
+        { vid: 2, id: "T--wmOVNP4A" },
+      ],
+      62: [
+        { vid: 1, id: "Ifj1T_Vt0ag" },
+        { vid: 2, id: "9rShCz4wb_o" },
+      ],
+      61: [
+        { vid: 1, id: "FQtOBIeJ880" },
+        { vid: 2, id: "EuB7mnyQWn0" },
+      ],
+      60: [
+        { vid: 1, id: "I7bW09swEhw" },
+        { vid: 2, id: "ORWKfmOioLs" },
+      ],
+      59: [
+        { vid: 1, id: "Evpwwzcbkjw" },
+        { vid: 2, id: "b5gTi1_zMyw" },
+      ],
+      58: [
+        { vid: 1, id: "rEraijN9Mwk" },
+        { vid: 2, id: "gpJG_TXEH5A" },
+      ],
+      57: [
+        { vid: 1, id: "GFtTKWbHr8w" },
+        { vid: 2, id: "E-vo2-0V1AQ" },
+      ],
+      56: [
+        { vid: 1, id: "dbqtMTOcAfE" },
+        { vid: 2, id: "s648sgcRhEU" },
+      ],
+      55: [
+        { vid: 1, id: "UfV2D0OEDzQ" },
+        { vid: 2, id: "NudEJO9aoyY" },
+      ],
+      54: [
+        { vid: 1, id: "-1f0VGt9SCQ" },
+        { vid: 2, id: "ydYIrhHYyx4" },
+      ],
+      53: [
+        { vid: 1, id: "7fwdyvFa668" },
+        { vid: 2, id: "gQL3M1--6UY" },
+      ],
+      52: [
+        { vid: 1, id: "8r2H4eFpLPY" },
+        { vid: 2, id: "BFJhbl0EODc" },
+      ],
+      51: [
+        { vid: 1, id: "daMPNnlcsmA" },
+        { vid: 2, id: "m0PkyFWbKHw" },
+      ],
+      50: [
+        { vid: 1, id: "477bEQm0wco" },
+        { vid: 2, id: "jmHyxwsCoEA" },
+      ],
+      49: [
+        { vid: 1, id: "Ew8-bEpegR0" },
+        { vid: 2, id: "G-TP_D2YvnY" },
+      ],
+      48: [
+        { vid: 1, id: "vl1yJuNYjNM" },
+        { vid: 2, id: "RJe4AxFlIl8" },
+      ],
+      47: [
+        { vid: 1, id: "zBU1lL8X-MU" },
+        { vid: 2, id: "TLYhX2nuLXo" },
+      ],
+      46: [
+        { vid: 1, id: "U1kmV-XwK4Y" },
+        { vid: 2, id: "yzNux6A938w" },
+      ],
+      45: [
+        { vid: 1, id: "ATsyQ_ZnT5U" },
+        { vid: 2, id: "jufz3wBZz_8" },
+      ],
+      44: [
+        { vid: 1, id: "hVlPKnz5GSs" },
+        { vid: 2, id: "BErNfEEo8pk" },
+      ],
+      43: [
+        { vid: 1, id: "q9VNCCCrRfg" },
+        { vid: 2, id: "N_6T2jwZuEU" },
+      ],
+      42: [
+        { vid: 1, id: "CBXEV587mBA" },
+        { vid: 2, id: "X2yhskhoxcA" },
+      ],
+      41: [
+        { vid: 1, id: "-v_w6Wg8TTI" },
+        { vid: 2, id: "OcYF4I7Tx6Q" },
+      ],
+      40: [
+        { vid: 1, id: "mGtxzfDoolM" },
+        { vid: 2, id: "zoNrrUfIax8" },
+      ],
+      39: [
+        { vid: 1, id: "Hvhb6_X1QGs" },
+        { vid: 2, id: "xclLCJoBzz8" },
+      ],
+      38: [
+        { vid: 1, id: "8SFkQRukDik" },
+        { vid: 2, id: "xvA1oaTak6w" },
+      ],
+      37: [
+        { vid: 1, id: "q_AgpK9ODds" },
+        { vid: 2, id: "HkrLwqTHnXs" },
+      ],
+      36: [
+        { vid: 1, id: "2OCb2Hvih3w" },
+        { vid: 2, id: "QJk-qrCpdc0" },
+      ],
+      35: [
+        { vid: 1, id: "25e7-KfaalU" },
+        { vid: 2, id: "ips_xgKkI-E" },
+      ],
+      34: [
+        { vid: 1, id: "AVlAR4pbJng" },
+        { vid: 2, id: "zSiq3oOkdpw" },
+      ],
+      33: [
+        { vid: 1, id: "UcHYecdMtFA" },
+        { vid: 2, id: "Kk3Fm49n6ng" },
+      ],
+      32: [
+        { vid: 1, id: "fFW1IBGESWI" },
+        { vid: 2, id: "6PUD-2_A8WQ" },
+      ],
+      31: [
+        { vid: 1, id: "Yq1ToH__iDk" },
+        { vid: 2, id: "a9UYBIokda4" },
+      ],
+      30: [
+        { vid: 1, id: "RMy0J01L6N8" },
+        { vid: 2, id: "j25oOsk7-nY" },
+      ],
+      29: [
+        { vid: 1, id: "5PxnWKAACCk" },
+        { vid: 2, id: "ahmobQd9P4A" },
+      ],
+      28: [
+        { vid: 1, id: "TYtTXvKJazY" },
+        { vid: 2, id: "tfTU3n00t00" },
+      ],
+      27: [
+        { vid: 1, id: "KEbWBSSTf54" },
+        { vid: 2, id: "mdbkIZwje_M" },
+      ],
+      26: [
+        { vid: 1, id: "Zr6QTPDfQEY" },
+        { vid: 2, id: "QWslQ1d_1H8" },
+      ],
+      25: [
+        { vid: 1, id: "iSOAgduLec0" },
+        { vid: 2, id: "v8dDf6ZFEOE" },
+      ],
+      24: [
+        { vid: 1, id: "omxdjozk_w8" },
+        { vid: 2, id: "_SzqYueaRKQ" },
+      ],
+      23: [
+        { vid: 1, id: "IRiyFhQyP0o" },
+        { vid: 2, id: "GqFZq06AV4Y" },
+      ],
+      22: [
+        { vid: 1, id: "0ATgd41_6UA" },
+        { vid: 2, id: "-7qDwXtX20Q" },
+      ],
+      21: [
+        { vid: 1, id: "6LolhiBJ7MY" },
+        { vid: 2, id: "XHRuG9ScFRk" },
+      ],
+      20: [
+        { vid: 1, id: "2oZy157Q5nY" },
+        { vid: 2, id: "qNkBL-HqvCM" },
+      ],
+      19: [
+        { vid: 1, id: "VGf0dKAmqMY" },
+        { vid: 2, id: "R2J32T-5q9c" },
+      ],
+      18: [
+        { vid: 1, id: "_bOnHyjS5G0" },
+        { vid: 2, id: "KiikY17lFIc" },
+      ],
+      17: [
+        { vid: 1, id: "2Jc-3DcCeIQ" },
+        { vid: 2, id: "NW57kL2fw2w" },
+      ],
+      16: [
+        { vid: 1, id: "GQzLD8NFOBQ" },
+        { vid: 2, id: "PHMC6edFqXU" },
+      ],
+      15: [
+        { vid: 1, id: "zZvY0Petal4" },
+        { vid: 2, id: "zLORRNHYwIs" },
+      ],
+      14: [
+        { vid: 1, id: "53VvgoWkrj0" },
+        { vid: 2, id: "iWY2S9T05l0" },
+      ],
+      13: [
+        { vid: 1, id: "IvY7Z1BIcEw" },
+        { vid: 2, id: "I6kxOKp_es0" },
+      ],
+      12: [
+        { vid: 1, id: "uH6a7ptUZbU" },
+        { vid: 2, id: "jeypHkd8grU" },
+      ],
+      11: [
+        { vid: 1, id: "nyZgr6W4w_g" },
+        { vid: 2, id: "cjbsLgOixeg" },
+      ],
+      10: [
+        { vid: 1, id: "mTjnpcctNmk" },
+        { vid: 2, id: "qBcf1vUM0LE" },
+      ],
+      9: [
+        { vid: 1, id: "N2iHxEFOG0s" },
+        { vid: 2, id: "qi_TTGGWAEY" },
+      ],
+      8: [
+        { vid: 1, id: "ey31SlcZGz0" },
+        { vid: 2, id: "L2VGn0Szqdo" },
+      ],
+      7: [
+        { vid: 1, id: "RMAowTrcWU0" },
+        { vid: 2, id: "-VQ1cx5nrv8" },
+      ],
+      6: [
+        { vid: 1, id: "pF4p_5IaHLU" },
+        { vid: 2, id: "sm-r5yugQp8" },
+      ],
+      5: [
+        { vid: 1, id: "3IyyllCdqdc" },
+        { vid: 2, id: "KRXjGPY25Fo" },
+      ],
+      4: [
+        { vid: 1, id: "LCzV8jpUJ-w" },
+        { vid: 2, id: "V7d0on-XvvY" },
+        { vid: 3, id: "rHk8d_410mM" },
+      ],
+      3: [
+        { vid: 1, id: "jS22_CJUJHc" },
+        { vid: 2, id: "joMok5Pl2YQ" },
+      ],
+      2: [
+        { vid: 1, id: "q_hGTyftEvk" },
+        { vid: 2, id: "X1Iq-OsLs7c" },
+      ],
+      1: [
+        { vid: 1, id: "gfo3CB-hvbM" },
+        { vid: 2, id: "QrB_e5j2V7U" },
+        { vid: 3, id: "qkSOHftFKBo" },
+      ],
+    };
+
+    const bookCard = document.querySelectorAll(".card")[0];
+    const banksCard = document.querySelectorAll(".card")[1];
+
+    const alertBook = document.querySelectorAll(".alert")[0];
+    const alertBanks = document.querySelectorAll(".alert")[1];
 
     function openVid() {
-      let pageNo = document.querySelector("input").value;
+      let pageNo = document.querySelectorAll("input")[0].value;
 
       if (pageNo > 0 && pageNo < 262) {
         window.open(videos[pageNo], "_blank");
-        alert.classList.add("d-none");
+        alertBook.classList.add("d-none");
       } else {
-        alert.classList.remove("d-none");
+        alertBook.classList.remove("d-none");
+      }
+    }
+
+    function openBank() {
+      let bankNo = document.querySelectorAll("input")[1].value;
+
+      if (bankNo > 0 && bankNo < 81) {
+        document.getElementById("bankBtns").innerHTML = prepareBnakHTML(bankNo);
+        alertBanks.classList.add("d-none");
+      } else {
+        document.getElementById("bankBtns").innerHTML = "";
+        alertBanks.classList.remove("d-none");
+      }
+    }
+
+    function prepareBnakHTML(bankNo) {
+      let html = "";
+      for (let i = 0; i < banks[bankNo].length; i++) {
+        html =
+          html +
+          `<a class="btn btn-secondary mx-2 mt-3" herf="https://www.youtube.com/watch?v=${
+            banks[bankNo][i]["id"]
+          }">الإصدار ${bankNo} الفيديو ${i + 1}</a>`;
+      }
+      return html;
+    }
+
+    function switchCard(targetedCard) {
+      if (targetedCard == "book") {
+        bookCard.classList.remove("d-none");
+        banksCard.classList.add("d-none");
+      } else if (targetedCard == "banks") {
+        bookCard.classList.add("d-none");
+        banksCard.classList.remove("d-none");
       }
     }
   </script>
