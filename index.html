@@ -13,6 +13,8 @@
       crossorigin="anonymous"
     />
 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
     <title>مقاطع شرح كتاب المعاصر 9</title>
   </head>
   <body>
@@ -704,12 +706,21 @@
     function prepareBnakHTML(bankNo) {
       let html = "";
       for (let i = 0; i < banks[bankNo].length; i++) {
-        html =
-          html +
-          `<a class="btn btn-secondary mx-2 mt-3" target="_blank" href="https://www.youtube.com/watch?v=${
-            banks[bankNo][i]["id"]
-          }">الإصدار ${bankNo} الفيديو ${i + 1}</a>`;
+        html += `<a class="btn btn-secondary mx-2 mt-3" target="_blank" href="https://www.youtube.com/watch?v=${
+          banks[bankNo][i]["id"]
+        }">الإصدار ${bankNo} الفيديو ${i + 1}</a>`;
       }
+    
+      // إضافة زر التحميل وحاوية PDF أسفل الأزرار
+      html += `
+        <a href="https://br495.github.io/tiqdr/${bankNo}" class="btn btn-sm btn-outline-primary mt-3" download>
+          <i class="bi bi-download"></i> تحميل الملف
+        </a>
+        <div class="pdf-container" style="height: 80vh;">
+          <iframe src="https://mozilla.github.io/pdf.js/web/viewer.html?file=https://br495.github.io/tiqdr/${bankNo}" width="100%" height="100%" style="border: none;"></iframe>
+        </div>
+      `;
+    
       return html;
     }
 
